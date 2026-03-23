@@ -108,3 +108,4 @@ export default function Weather() {
 
 search();
 return <div className="Weather">Loading...</div>;
+}
