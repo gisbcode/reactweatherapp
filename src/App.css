@@ -6,11 +6,11 @@ body {
 }
 
 .App {
-  padding: 40px 15px;
+  padding: 80px 15px;
 }
 
 .container {
-  max-width: 600px;
+  max-width: 200px;
   margin: 0 auto;
 }
 
