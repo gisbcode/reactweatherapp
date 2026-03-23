@@ -61,6 +61,22 @@ export default function Weather() {
     return iconMap[iconCode] || "CLEAR_DAY";
   }
 
+
+  function formatDay() {
+    const now = new Date();
+    const days = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
+    return days[now.getDay()];
+  }
+
+
   if (weather.ready) {
   return (
     <div className="Weather">
