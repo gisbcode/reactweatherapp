@@ -98,7 +98,7 @@ export default function Weather() {
         <div className="Weather-info">
           <h1>{weather.city}</h1>
           <div className="Weather-details">
-            {weather.description}
+            {formatDay()} — {weather.description}
             <br />
             Humidity: <strong>{weather.humidity}%</strong>, Wind:{" "}
             <strong>{weather.wind} km/h</strong>
