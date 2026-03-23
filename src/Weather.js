@@ -104,7 +104,7 @@ export default function Weather() {
       <WeatherForecast coordinates={weather.coordinates} />
     </div>
   );
-} else {
-  search();
-  return <div className="Weather">Loading...</div>;
 }
+
+search();
+return <div className="Weather">Loading...</div>;
