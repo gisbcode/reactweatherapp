@@ -18,9 +18,9 @@ function App() {
           >
             Giovanna Bellon
           </a>{" "}
-          and is open sourced on{" "}
+          and is open-sourced on{" "}
           <a
-            href="https://github.com/gisbcode/reactweatherapp"
+            href="https://github.com/gisbcode/reactfinalapp"
             target="_blank"
             rel="noreferrer"
           >

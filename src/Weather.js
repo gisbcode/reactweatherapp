@@ -62,32 +62,49 @@ export default function Weather() {
   }
 
   if (weather.ready) {
-    return (
-      <div className="Weather">
-        <form onSubmit={handleSubmit}>
-          <input type="search" value={city} onChange={handleCityChange} />
-          <button type="submit">Search</button>
-        </form>
-
-        <h1>{weather.city}</h1>
-
-        <ReactAnimatedWeather
-          icon={mapIcon(weather.icon)}
-          color="blue"
-          size={90}
-          animate={true}
+  return (
+    <div className="Weather">
+      <form onSubmit={handleSubmit}>
+        <input
+          type="search"
+          value={city}
+          onChange={handleCityChange}
+          placeholder="Enter a city..."
+          autoFocus="on"
+          className="Weather-search-input"
         />
+        <button type="submit" className="Weather-search-button">
+          Search
+        </button>
+      </form>
 
-        <h2>{weather.temperature}°C</h2>
-        <p>{weather.description}</p>
-        <p>Humidity: {weather.humidity}%</p>
-        <p>Wind: {weather.wind} km/h</p>
+      <div className="Weather-main">
+        <div className="Weather-info">
+          <h1>{weather.city}</h1>
+          <div className="Weather-details">
+            {weather.description}
+            <br />
+            Humidity: <strong>{weather.humidity}%</strong>, Wind:{" "}
+            <strong>{weather.wind} km/h</strong>
+          </div>
+        </div>
 
-        <WeatherForecast coordinates={weather.coordinates} />
+        <div className="Weather-temperature-container">
+          <ReactAnimatedWeather
+            icon={mapIcon(weather.icon)}
+            color="#885df1"
+            size={72}
+            animate={true}
+          />
+          <div className="Weather-temperature">{weather.temperature}</div>
+          <div className="Weather-unit">°C</div>
+        </div>
       </div>
-    );
-  } else {
-    search();
-    return "Loading...";
-  }
+
+      <WeatherForecast coordinates={weather.coordinates} />
+    </div>
+  );
+} else {
+  search();
+  return <div className="Weather">Loading...</div>;
 }

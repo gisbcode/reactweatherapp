@@ -66,14 +66,20 @@ export default function WeatherForecast(props) {
     <div className="Forecast row">
       {dailyForecast.map((day, index) => (
         <div className="col" key={index}>
-          <div>{formatDay(day.dt)}</div>
+          <div className="Forecast-day">{formatDay(day.dt)}</div>
+
           <ReactAnimatedWeather
             icon={mapIcon(day.weather[0].icon)}
             size={40}
             animate={true}
           />
-          <div>
-            {Math.round(day.main.temp_max)}° / {Math.round(day.main.temp_min)}°
+          <div className="Forecast-temp">
+            <span className="Forecast-temp-max">
+              {Math.round(day.temp.max)}°
+            </span>
+            <span className="Forecast-temp-min">
+              {Math.round(day.temp.min)}°
+            </span>
           </div>
         </div>
       ))}
