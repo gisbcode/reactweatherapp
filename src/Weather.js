@@ -62,7 +62,7 @@ export default function Weather() {
   }
 
 
-  function formatDay() {
+  function formatDate() {
     const now = new Date();
     const days = [
       "Sunday",
@@ -73,8 +73,12 @@ export default function Weather() {
       "Friday",
       "Saturday",
     ];
-    return days[now.getDay()];
+    const hours = now.getHours().toString().padStart(2, "0");
+    const minutes = now.getMinutes().toString().padStart(2, "0");
+
+    return `${days[now.getDay()]} ${hours}:${minutes}`;
   }
+
 
 
   if (weather.ready) {
