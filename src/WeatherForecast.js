@@ -11,7 +11,7 @@ export default function WeatherForecast(props) {
 
     if (!props.coordinates) return;
 
-    const apiKey = "39a3014fd34afe90bc14c4tc7oed280d";
+    const apiKey = "22a8b6d46bced57bb018a83197efe51a";
     const lat = props.coordinates.lat;
     const lon = props.coordinates.lon;
 
