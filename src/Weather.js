@@ -99,6 +99,8 @@ export default function Weather() {
       <div className="Weather-main">
         <div className="Weather-info">
           <h1>{weather.city}</h1>
+          <p>{formatDay()}</p>
+
           <div className="Weather-details">
             {formatDay()} — {weather.description}
             <br />
