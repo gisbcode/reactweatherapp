@@ -3,9 +3,15 @@ import axios from "axios";
 import WeatherForecast from "./WeatherForecast";
 import ReactAnimatedWeather from "react-animated-weather";
 
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import WeatherForecast from "./WeatherForecast";
+import ReactAnimatedWeather from "react-animated-weather";
+
 export default function Weather() {
   const [city, setCity] = useState("London");
   const [weather, setWeather] = useState({ ready: false });
+  const [currentTime, setCurrentTime] = useState("");
 
   function handleResponse(response) {
     setWeather({
@@ -26,6 +32,35 @@ export default function Weather() {
 
     axios.get(apiUrl).then(handleResponse);
   }
+
+  useEffect(() => {
+    search();
+    // eslint-disable-next-line
+  }, []);
+
+  useEffect(() => {
+    function updateTime() {
+      const now = new Date();
+      const days = [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+      ];
+      const hours = now.getHours().toString().padStart(2, "0");
+      const minutes = now.getMinutes().toString().padStart(2, "0");
+
+      setCurrentTime(`${days[now.getDay()]} ${hours}:${minutes}`);
+    }
+
+    updateTime();
+    const interval = setInterval(updateTime, 1000 * 60);
+
+    return () => clearInterval(interval);
+  }, []);
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -61,67 +96,55 @@ export default function Weather() {
     return iconMap[iconCode] || "CLEAR_DAY";
   }
 
-  function formatDay() {
-    const now = new Date();
-    const days = [
-      "Sunday",
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
-    ];
-    return days[now.getDay()];
+  if (!weather.ready) {
+    return <div className="Weather">Loading...</div>;
   }
 
-  if (weather.ready) {
-    return (
-      <div className="Weather">
-        <form onSubmit={handleSubmit}>
-          <input
-            type="search"
-            value={city}
-            onChange={handleCityChange}
-            placeholder="Enter a city..."
-            autoFocus="on"
-            className="Weather-search-input"
-          />
-          <button type="submit" className="Weather-search-button">
-            Search
-          </button>
-        </form>
+  return (
+    <div className="Weather">
+      <form onSubmit={handleSubmit}>
+        <input
+          type="search"
+          value={city}
+          onChange={handleCityChange}
+          placeholder="Search city..."
+          className="Weather-search-input"
+          autoFocus="on"
+        />
+        <button type="submit" className="Weather-search-button">
+          Search
+        </button>
+      </form>
 
-        <div className="Weather-main">
-          <div className="Weather-info">
-            <h1>{weather.city}</h1>
-            <p>{formatDay()}</p>
+      <div className="Weather-top">
+        <h1>{weather.city}</h1>
+        <div className="Weather-date">{currentTime}</div>
+      </div>
 
-            <div className="Weather-details">
-              {formatDay()} — {weather.description}
-              <br />
-              Humidity: <strong>{weather.humidity}%</strong>, Wind:{" "}
-              <strong>{weather.wind} km/h</strong>
-            </div>
-          </div>
+      <div className="Weather-center">
+        <ReactAnimatedWeather
+          icon={mapIcon(weather.icon)}
+          color="#315efb"
+          size={92}
+          animate={true}
+        />
+        <div className="Weather-temperature">{weather.temperature}°</div>
+        <div className="Weather-description">{weather.description}</div>
+      </div>
 
-          <div className="Weather-temperature-container">
-            <ReactAnimatedWeather
-              icon={mapIcon(weather.icon)}
-              color="#885df1"
-              size={72}
-              animate={true}
-            />
-            <div className="Weather-temperature">{weather.temperature}</div>
-            <div className="Weather-unit">°C</div>
-          </div>
+      <div className="Weather-details">
+        <div className="Weather-detail-card">
+          <div className="Weather-detail-label">Humidity</div>
+          <div className="Weather-detail-value">{weather.humidity}%</div>
         </div>
 
-        <WeatherForecast coordinates={weather.coordinates} />
+        <div className="Weather-detail-card">
+          <div className="Weather-detail-label">Wind</div>
+          <div className="Weather-detail-value">{weather.wind} km/h</div>
+        </div>
       </div>
-    );
-  }
 
-  search();
-  return <div className="Weather">Loading...</div>;
+      <WeatherForecast coordinates={weather.coordinates} />
+    </div>
+  );
 }
