@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import ReactAnimatedWeather from "react-animated-weather";
 
-export default function WeatherForecast(props) {
+export default function WeatherForecast({city}) {
   const [loaded, setLoaded] = useState(false);
   const [forecast, setForecast] = useState([]);
 
