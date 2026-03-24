@@ -15,7 +15,7 @@ export default function WeatherForecast(props) {
     const lat = props.coordinates.lat;
     const lon = props.coordinates.lon;
 
-    const apiUrl = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+    const apiUrl = `https://api.shecodes.io/weather/v1/current?query=London&key=1a747f2d7ac32a100bt13fab8776o6ca`;
     axios.get(apiUrl).then(handleResponse);
   }, [props.coordinates]);
 
