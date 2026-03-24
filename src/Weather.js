@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import WeatherForecast from "./WeatherForecast";
 import ReactAnimatedWeather from "react-animated-weather";
-
 
 export default function Weather() {
   const [city, setCity] = useState("London");
