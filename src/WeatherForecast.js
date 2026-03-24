@@ -2,20 +2,21 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import ReactAnimatedWeather from "react-animated-weather";
 
-export default function WeatherForecast({city}) {
+export default function WeatherForecast(props) {
   const [loaded, setLoaded] = useState(false);
   const [forecast, setForecast] = useState([]);
 
   useEffect(() => {
-    setLoaded(false);
-
     if (!props.coordinates) return;
+
+    setLoaded(false);
 
     const apiKey = "22a8b6d46bced57bb018a83197efe51a";
     const lat = props.coordinates.lat;
     const lon = props.coordinates.lon;
 
-    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+    const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+
     axios.get(apiUrl).then(handleResponse);
   }, [props.coordinates]);
 
@@ -73,12 +74,13 @@ export default function WeatherForecast({city}) {
             size={40}
             animate={true}
           />
+
           <div className="Forecast-temp">
             <span className="Forecast-temp-max">
-              {Math.round(day.temp.max)}°
+              {Math.round(day.main.temp_max)}°
             </span>
             <span className="Forecast-temp-min">
-              {Math.round(day.temp.min)}°
+              {Math.round(day.main.temp_min)}°
             </span>
           </div>
         </div>
