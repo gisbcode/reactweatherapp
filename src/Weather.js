@@ -52,7 +52,7 @@ export default function Weather() {
     }
 
     updateTime();
-    const interval = setInterval(updateTime, 1000 * 60);
+    const interval = setInterval(updateTime, 60000);
 
     return () => clearInterval(interval);
   }, []);
@@ -111,31 +111,28 @@ export default function Weather() {
         </button>
       </form>
 
-      <div className="Weather-top">
-        <h1>{weather.city}</h1>
-        <div className="Weather-date">{currentTime}</div>
-      </div>
+      <div className="Weather-main">
+        <div className="Weather-info">
+          <h1>{weather.city}</h1>
+          <div className="Weather-time">{currentTime}</div>
 
-      <div className="Weather-center">
-        <ReactAnimatedWeather
-          icon={mapIcon(weather.icon)}
-          color="#315efb"
-          size={92}
-          animate={true}
-        />
-        <div className="Weather-temperature">{weather.temperature}°</div>
-        <div className="Weather-description">{weather.description}</div>
-      </div>
-
-      <div className="Weather-details">
-        <div className="Weather-detail-card">
-          <div className="Weather-detail-label">Humidity</div>
-          <div className="Weather-detail-value">{weather.humidity}%</div>
+          <div className="Weather-details">
+            {weather.description}
+            <br />
+            Humidity: <strong>{weather.humidity}%</strong>, Wind:{" "}
+            <strong>{weather.wind} km/h</strong>
+          </div>
         </div>
 
-        <div className="Weather-detail-card">
-          <div className="Weather-detail-label">Wind</div>
-          <div className="Weather-detail-value">{weather.wind} km/h</div>
+        <div className="Weather-temperature-container">
+          <ReactAnimatedWeather
+            icon={mapIcon(weather.icon)}
+            color="#885df1"
+            size={72}
+            animate={true}
+          />
+          <div className="Weather-temperature">{weather.temperature}</div>
+          <div className="Weather-unit">°C</div>
         </div>
       </div>
 
